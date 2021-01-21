@@ -42,8 +42,12 @@ options:
 
 
 ## License
-GNU General Public License v3.0
+
+Multi licensed under:
+* GNU General Public License v2.0 or later
+* AGPL 3.0 or later
+* Create Commons 4.0 BY
 
 ## Author
 
-arnim rupp
+Arnim Rupp
