@@ -7,10 +7,12 @@ Features:
 * Works on Linux, Windows and Mac OS (uses start method "spawn")
 * Runs with Python 3 and 2
 * Command line parameters aim to be compatible with yara.c (as far as implemented ;)
+* It does not follow symlinks so it resembles "yara -N" (symlink handling isn't proper in yara.c anyway, try to scan /usr/bin on debian. It contains the symlink "X11 -> ." which yara.c follows indefinitely.)
+
 
 Speed:
-- This script is ~25% slower than yara.c with 20 rules
-- It's 100% slower than yara.c with 1600 rules (strange because I would assume that a bigger percentage of the work is done in the native C part. Reason could be that every worker process needs it's own copy of the compiled rules in memory because they can't be shared. (pickling doesn't work on C objects.)
+- This script reaches 75% of the speed of yara.c with 20 rules.
+- It reaches 50% of the speed of yara.c with 1600 rules (strange because I would assume that a bigger percentage of the work is done in the native C part. Reason could be that every worker process needs it's own copy of the compiled rules in memory because they can't be shared. (pickling doesn't work on C objects.)
 
 Things that could make this code faster:
 - Find a way to have the compiled rules in some kind of shared memory to have more CPU cache hits. At the moment each worker process has its own compiled rules.
