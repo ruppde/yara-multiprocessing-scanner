@@ -8,11 +8,12 @@ yara_multiprocessing_scanner.py
 - Works on linux, windows and mac os (uses start method "spawn")
 - Runs with python 3 and 2
 - Command line parameters aim to be compatible with yara.c (as far as implemented ;)
-- Uses The Unlicense, do whatever you want with the code
 - By arnim rupp 
 
-License:
+Multi licensed:
 GNU General Public License v3.0
+AGPL 3.0 or later
+Creative Commons 4.0 BY
 
 '''
 
@@ -128,7 +129,7 @@ def main():
     work_queue.join_thread()
 
 if __name__ == '__main__':
-    main()
     # Add support for when a program which uses multiprocessing has been frozen to produce a Windows executable. (Has been tested with py2exe, PyInstaller and cx_Freeze.)
     multiprocessing.freeze_support()
 
+    main()

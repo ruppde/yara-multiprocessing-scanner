@@ -42,6 +42,31 @@ options:
                         use the specified NUMBER of threads to scan a directory (default is number of virtual cores)
 ```
 
+# YARA simple scanner
+
+Features:
+- Example implementation of a recursive file scanner using yara-python
+- Runs with python 3 and 2
+- Command line parameters aim to be compatible with yara.c (as far as implemented ;)
+
+
+## Usage
+```
+$ ./yara_simple_scanner.py -h
+usage: yara_simple_scanner.py [-h] [-r] [-p [P]] RULES_FILE DIR
+
+yara_simple_scanner.py
+
+positional arguments:
+  RULES_FILE       Path to rules file
+  DIR              Path to scan
+
+optional arguments:
+  -h, --help       show this help message and exit
+  -r, --recursive  recursively search directories
+  -p               Ignored, just here for lazyness purposes to have compatible params
+```
+
 
 ## License
 
