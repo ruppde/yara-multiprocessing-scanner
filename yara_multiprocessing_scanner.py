@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+
 '''
 yara_multiprocessing_scanner.py
 - Example implementation of a fast recursive file scanner with multiprocessing using yara-python 
@@ -26,12 +28,10 @@ def do_scan(filePath, rules):
 
     #print("scanning: ", filePath)
 
-    with open(filePath, 'rb') as f:
-        fileData = f.read()
-
-    # Scan the data read from file
+    # give yara the filename to scan
     try:
-        matches = rules.match(data=fileData)
+        # can't measure a difference between fast mode or not, probably not worth creating a param as in yara.c
+        matches = rules.match(filePath, fast=True)
         if matches:
             for match in matches:
                 print(match.rule, filePath)
