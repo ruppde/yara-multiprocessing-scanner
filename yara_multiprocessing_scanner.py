@@ -18,11 +18,11 @@ GNU General Public License v3.0
 
 import yara      # pip install yara-python
 import argparse
-import os
-import sys
+from os import walk, path
+from sys import version_info
 import multiprocessing
-import queue
-import time
+from queue import Empty
+from time import sleep
 
 def do_scan(filePath, rules):
 
@@ -61,7 +61,7 @@ def worker(rulesfile, work_queue):
                 except Exception as e:
                     print(e)
             work_queue.task_done()
-        except queue.Empty:
+        except Empty:
             continue
         except Exception as e:
             print("%s failed on %s with: %s" % (multiprocessing.current_process().name, filePath, e.message))
@@ -73,7 +73,7 @@ def worker(rulesfile, work_queue):
 def main():
 
     # code works with python2.7 but can't be set to spawn, output differs a bit and it's 15% slower
-    if sys.version_info[0] >= 3:
+    if version_info[0] >= 3:
         # spawn is the only method on win
         multiprocessing.set_start_method('spawn')
 
@@ -105,12 +105,12 @@ def main():
         processes.append(p)
 
     # wait for workers to compile rules, TODO: let them send a message when done
-    time.sleep(0.1)
+    sleep(0.1)
 
-    for root, directories, files in os.walk(str(args.DIR), followlinks=False):
+    for root, directories, files in walk(str(args.DIR), followlinks=False):
 
         for filename in files:
-            filePath = os.path.join(root, filename)
+            filePath = path.join(root, filename)
             #print("put in queue ", filePath)
             work_queue.put(filePath)
             #print("qsize: ", work_queue.qsize())
